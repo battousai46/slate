@@ -3,8 +3,11 @@ from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 from fastapi.routing import APIRoute
 from api.routes.v1.views import router_v1
+from bin.slate_auth import CustomSlateAuth
 from helper.logging_slate import get_logger
 from argparse import ArgumentParser, Namespace
+from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.authentication import AuthenticationMiddleware
 
 logger = get_logger(__name__)
 def log_exception_handler(request: Request, exc: Exception) -> JSONResponse:
@@ -25,6 +28,16 @@ def build_api()->FastAPI:
     app.include_router(router_v1)
     app.add_exception_handler(Exception, log_exception_handler)
 
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+    #add auth middle ware
+    app.add_middleware(AuthenticationMiddleware,backend=CustomSlateAuth())
     return app
 
 def get_args() -> Namespace:
