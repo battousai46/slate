@@ -1,0 +1,113 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "Task object graphql via appsync datasource lambda and dynamodb.\n"
+Resources:
+  AppSyncApi:
+    Type: AWS::AppSync::GraphQLApi
+    Properties:
+      Name: TaskAppSyncAPI
+      AuthenticationType: API_KEY
+  AppSyncSchema:
+    Type: AWS::AppSync::GraphQLSchema
+    Properties:
+      ApiId:
+        Fn::GetAtt:
+        - AppSyncApi
+        - ApiId
+      Definition:
+        Fn::Sub: file://schema.graphql
+  TaskTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Tasks
+      AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+      KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: LambdaSTSRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Policies:
+      - PolicyName: LambdaDynamoDBPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            Resource: '*'
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: '*'
+  TaskPythonLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: TaskResolverLambda
+      Handler: task_lambda.handler
+      Runtime: python3.11
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      Code:
+        S3Bucket: graphql-datasource-lambda
+        S3Key: task_lambda.zip
+      Environment:
+        Variables:
+          DYNAMODB_ENDPOINT: http://localhost:4566
+  LambdaDataSource:
+    Type: AWS::AppSync::DataSource
+    Properties:
+      ApiId:
+        Fn::GetAtt:
+        - AppSyncApi
+        - ApiId
+      Name: LambdaDataSource
+      Type: AWS_LAMBDA
+      LambdaConfig:
+        LambdaFunctionArn:
+          Fn::GetAtt:
+          - TaskPythonLambdaFunction
+          - Arn
+      ServiceRoleArn:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+  GetItemResolver:
+    Type: AWS::AppSync::Resolver
+    Properties:
+      ApiId:
+        Fn::GetAtt:
+        - AppSyncApi
+        - ApiId
+      TypeName: Query
+      FieldName: getTask
+      DataSourceName:
+        Ref: LambdaDataSource
+      RequestMappingTemplate: "{\n  \"version\": \"2018-05-29\",\n  \"operation\"\
+        : \"Invoke\",\n  \"field\": \"getTask\",\n  \"arguments\": $util.toJson($context.arguments)\n\
+        }\n"
+      ResponseMappingTemplate: $util.toJson($ctx.result)
+  AppSyncApiKey:
+    Type: AWS::AppSync::ApiKey
+    Properties:
+      ApiId:
+        Fn::GetAtt:
+        - AppSyncApi
+        - ApiId

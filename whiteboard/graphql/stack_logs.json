@@ -1,0 +1,339 @@
+{
+    "StackEvents": [
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "7fcf2e60-a557-456d-a475-c057d7ada06a",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "irfan-appsync-stack",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::CloudFormation::Stack",
+            "Timestamp": "2025-03-04T05:02:23.223000+00:00",
+            "ResourceStatus": "CREATE_FAILED",
+            "ResourceStatusReason": "Resource handler returned message: \"Failed to delete resource with id GetItemResolver of type AWS::AppSync::Resolver\" (RequestToken: 10c10335-276a-33d3-5c07-018b684c3d26, HandlerErrorCode: InvalidRequest)None"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "189fc972-e08b-4afe-94fb-886c7cd5aae4",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "GetItemResolver",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::AppSync::Resolver",
+            "Timestamp": "2025-03-04T05:02:23.219000+00:00",
+            "ResourceStatus": "DELETE_FAILED",
+            "ResourceStatusReason": "Resource handler returned message: \"Failed to delete resource with id GetItemResolver of type AWS::AppSync::Resolver\" (RequestToken: 10c10335-276a-33d3-5c07-018b684c3d26, HandlerErrorCode: InvalidRequest)None"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "35e211bb-9128-456a-9e1c-cd8fac2c0dba",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "GetItemResolver",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::AppSync::Resolver",
+            "Timestamp": "2025-03-04T05:02:23.219000+00:00",
+            "ResourceStatus": "DELETE_FAILED",
+            "ResourceStatusReason": "Failed to delete resource with id GetItemResolver of type AWS::AppSync::Resolver"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "dca15422-a214-489a-acff-ba239d36e4ac",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "GetItemResolver",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::AppSync::Resolver",
+            "Timestamp": "2025-03-04T05:02:23.216000+00:00",
+            "ResourceStatus": "DELETE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "dd9f356b-7c79-4b63-acab-96d623ddf40e",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "AppSyncApi",
+            "PhysicalResourceId": "arn:aws:appsync:ap-southeast-2:000000000000:apis/0357b66c504542d4845fb12d81",
+            "ResourceType": "AWS::AppSync::GraphQLApi",
+            "Timestamp": "2025-03-04T05:02:23.192000+00:00",
+            "ResourceStatus": "UPDATE_COMPLETE"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "43aa845b-93e0-40bd-bf43-d331aebf173d",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "AppSyncApi",
+            "PhysicalResourceId": "arn:aws:appsync:ap-southeast-2:000000000000:apis/0357b66c504542d4845fb12d81",
+            "ResourceType": "AWS::AppSync::GraphQLApi",
+            "Timestamp": "2025-03-04T05:02:23.191000+00:00",
+            "ResourceStatus": "UPDATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "e8b3b0c4-898f-4cac-a9b9-6db899f6b20e",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "LambdaExecutionRole",
+            "PhysicalResourceId": "LambdaSTSRole",
+            "ResourceType": "AWS::IAM::Role",
+            "Timestamp": "2025-03-04T05:02:23.163000+00:00",
+            "ResourceStatus": "UPDATE_COMPLETE"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "a4a20171-de6d-40e3-b042-c1f65bc51aa5",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "LambdaExecutionRole",
+            "PhysicalResourceId": "LambdaSTSRole",
+            "ResourceType": "AWS::IAM::Role",
+            "Timestamp": "2025-03-04T05:02:23.161000+00:00",
+            "ResourceStatus": "UPDATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "730eccf7-d861-46cf-8934-3cec860f57a9",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "AppSyncApiKey",
+            "PhysicalResourceId": "arn:aws:appsync:ap-southeast-2:000000000000:apis/0357b66c504542d4845fb12d81/apikeys/971161f9",
+            "ResourceType": "AWS::AppSync::ApiKey",
+            "Timestamp": "2025-03-04T05:02:22.755000+00:00",
+            "ResourceStatus": "UPDATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "dfc0a23c-c950-4384-89d4-d9ce94d58897",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "GetItemResolver",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::AppSync::Resolver",
+            "Timestamp": "2025-03-04T05:02:22.755000+00:00",
+            "ResourceStatus": "UPDATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "2978fbc3-4d37-4cc0-8032-05c03efc9086",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "LambdaDataSource",
+            "PhysicalResourceId": "arn:aws:appsync:ap-southeast-2:000000000000:apis/0357b66c504542d4845fb12d81/datasources/LambdaDataSource",
+            "ResourceType": "AWS::AppSync::DataSource",
+            "Timestamp": "2025-03-04T05:02:22.755000+00:00",
+            "ResourceStatus": "UPDATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "77867a93-ee66-48bf-8bf2-be89d2fa1b1c",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "AppSyncSchema",
+            "PhysicalResourceId": "0357b66c504542d4845fb12d81GraphQLSchema",
+            "ResourceType": "AWS::AppSync::GraphQLSchema",
+            "Timestamp": "2025-03-04T05:02:22.755000+00:00",
+            "ResourceStatus": "UPDATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "558c5147-4091-4400-8d55-d642b42195e4",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "AppSyncApi",
+            "PhysicalResourceId": "arn:aws:appsync:ap-southeast-2:000000000000:apis/0357b66c504542d4845fb12d81",
+            "ResourceType": "AWS::AppSync::GraphQLApi",
+            "Timestamp": "2025-03-04T05:02:22.755000+00:00",
+            "ResourceStatus": "UPDATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "f906abbc-3cc4-448f-a144-2ef7e5b742cb",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "TaskPythonLambdaFunction",
+            "PhysicalResourceId": "TaskResolverLambda",
+            "ResourceType": "AWS::Lambda::Function",
+            "Timestamp": "2025-03-04T05:02:22.755000+00:00",
+            "ResourceStatus": "UPDATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "d593229f-11ba-4f44-b116-a8c7aeb76d84",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "LambdaExecutionRole",
+            "PhysicalResourceId": "LambdaSTSRole",
+            "ResourceType": "AWS::IAM::Role",
+            "Timestamp": "2025-03-04T05:02:22.755000+00:00",
+            "ResourceStatus": "UPDATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "e0ff5840-c525-465c-b7f8-3759a8f58a95",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "irfan-appsync-stack",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::CloudFormation::Stack",
+            "Timestamp": "2025-03-04T05:02:22.754000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "de319180-5488-4704-8f43-ed9f9f6be24a",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "irfan-appsync-stack",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::CloudFormation::Stack",
+            "Timestamp": "2025-03-04T04:29:21.067000+00:00",
+            "ResourceStatus": "CREATE_FAILED",
+            "ResourceStatusReason": "An error occurred (NotFoundException) when calling the CreateResolver operation: No data source found named arn:aws:appsync:ap-southeast-2:000000000000:apis/0357b66c504542d4845fb12d81/datasources/LambdaDataSource"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "03f94c2a-286b-4bfb-8773-b5a1124c14de",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "GetItemResolver",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::AppSync::Resolver",
+            "Timestamp": "2025-03-04T04:29:21.061000+00:00",
+            "ResourceStatus": "CREATE_FAILED",
+            "ResourceStatusReason": "An error occurred (NotFoundException) when calling the CreateResolver operation: No data source found named arn:aws:appsync:ap-southeast-2:000000000000:apis/0357b66c504542d4845fb12d81/datasources/LambdaDataSource"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "c8c723b6-2ca1-44f1-affe-3174eaa21422",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "GetItemResolver",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::AppSync::Resolver",
+            "Timestamp": "2025-03-04T04:29:21.055000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "cf46d358-4025-4a5f-b633-4970921480e2",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "LambdaDataSource",
+            "PhysicalResourceId": "arn:aws:appsync:ap-southeast-2:000000000000:apis/0357b66c504542d4845fb12d81/datasources/LambdaDataSource",
+            "ResourceType": "AWS::AppSync::DataSource",
+            "Timestamp": "2025-03-04T04:29:21.038000+00:00",
+            "ResourceStatus": "CREATE_COMPLETE"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "f9e5b3f7-597a-4230-8dae-7075f74aa788",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "LambdaDataSource",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::AppSync::DataSource",
+            "Timestamp": "2025-03-04T04:29:21.032000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "d1f69e59-100f-4641-95b5-dd12d76ff23c",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "AppSyncApiKey",
+            "PhysicalResourceId": "arn:aws:appsync:ap-southeast-2:000000000000:apis/0357b66c504542d4845fb12d81/apikeys/971161f9",
+            "ResourceType": "AWS::AppSync::ApiKey",
+            "Timestamp": "2025-03-04T04:29:21.013000+00:00",
+            "ResourceStatus": "CREATE_COMPLETE"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "2144c718-a7ae-41fa-813e-fb8b86bc3aea",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "AppSyncApiKey",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::AppSync::ApiKey",
+            "Timestamp": "2025-03-04T04:29:21.007000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "1971082f-78b4-4394-a83a-0a9d26c974dc",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "AppSyncSchema",
+            "PhysicalResourceId": "0357b66c504542d4845fb12d81GraphQLSchema",
+            "ResourceType": "AWS::AppSync::GraphQLSchema",
+            "Timestamp": "2025-03-04T04:29:20.999000+00:00",
+            "ResourceStatus": "CREATE_COMPLETE"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "aba28fac-a951-47cf-b1dd-262838dbcf43",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "AppSyncSchema",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::AppSync::GraphQLSchema",
+            "Timestamp": "2025-03-04T04:29:20.919000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "170f1484-5932-4c0f-a3a6-23129a7f2fb9",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "TaskPythonLambdaFunction",
+            "PhysicalResourceId": "TaskResolverLambda",
+            "ResourceType": "AWS::Lambda::Function",
+            "Timestamp": "2025-03-04T04:29:20.891000+00:00",
+            "ResourceStatus": "CREATE_COMPLETE"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "07c343c7-0a7a-4d8e-94e9-6ad52faff50d",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "TaskPythonLambdaFunction",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::Lambda::Function",
+            "Timestamp": "2025-03-04T04:28:40.613000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "2fb536c9-c41c-4152-abeb-5b2c5d200928",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "AppSyncApi",
+            "PhysicalResourceId": "arn:aws:appsync:ap-southeast-2:000000000000:apis/0357b66c504542d4845fb12d81",
+            "ResourceType": "AWS::AppSync::GraphQLApi",
+            "Timestamp": "2025-03-04T04:28:40.589000+00:00",
+            "ResourceStatus": "CREATE_COMPLETE"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "54f91b32-0811-4dcb-adcc-f52ac577048c",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "AppSyncApi",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::AppSync::GraphQLApi",
+            "Timestamp": "2025-03-04T04:28:40.585000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "7a846124-1ce4-4004-bbce-db9431f968cb",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "LambdaExecutionRole",
+            "PhysicalResourceId": "LambdaSTSRole",
+            "ResourceType": "AWS::IAM::Role",
+            "Timestamp": "2025-03-04T04:28:40.578000+00:00",
+            "ResourceStatus": "CREATE_COMPLETE"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "ead1ddcb-5a7c-436f-b284-be8afc4d8c45",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "LambdaExecutionRole",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::IAM::Role",
+            "Timestamp": "2025-03-04T04:28:40.547000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "74223075-90a5-430c-8329-3ff81e9151be",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "irfan-appsync-stack",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::CloudFormation::Stack",
+            "Timestamp": "2025-03-04T04:28:40.414000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "EventId": "df43a732-e7d1-4906-8f42-14d20b2d6dad",
+            "StackName": "irfan-appsync-stack",
+            "LogicalResourceId": "irfan-appsync-stack",
+            "PhysicalResourceId": "arn:aws:cloudformation:ap-southeast-2:000000000000:stack/irfan-appsync-stack/ededdbde",
+            "ResourceType": "AWS::CloudFormation::Stack",
+            "Timestamp": "2025-03-04T04:28:40.399000+00:00",
+            "ResourceStatus": "REVIEW_IN_PROGRESS"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+enum Status {
+  TO_DO
+  IN_PROGRESS
+  COMPLETED
+}
+
+type Task {
+  id: ID!
+  title: String!
+  description: String
+  due_date: AWSDateTime
+  status: Status!
+}
+
+type Query {
+  getTask(id: ID!): Task
+  listTasks: [Task]
+}
+
+input CreateTaskInput {
+  title: String!
+  description: String
+  due_date: AWSDateTime
+  status: Status = TO_DO
+}
+
+input UpdateTaskInput {
+  id: ID!
+  title: String
+  description: String
+  due_date: AWSDateTime
+  status: Status
+}
+
+type Mutation {
+  createTask(input: CreateTaskInput!): Task
+  updateTask(input: UpdateTaskInput!): Task
+  deleteTask(id: ID!): Task
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

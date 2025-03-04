@@ -1,0 +1,76 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AppSync Resolver Stack
+
+Parameters:
+
+  AppSyncApiId:
+    Type: String
+    Default: "base-stack-AppSyncApiId"
+
+Resources:
+  ### Resolver for the "getTask" Query ###
+  GetTaskResolver:
+    Type: AWS::AppSync::Resolver
+    Properties:
+      ApiId: !ImportValue
+         Fn::Sub: "${AppSyncApiId}"
+      TypeName: Query
+      FieldName: getTask
+      DataSourceName: "LambdaDataSource"
+      RequestMappingTemplate: |
+        {
+          "version": "2018-05-29",
+          "payload": $util.toJson($context.arguments)
+        }
+      ResponseMappingTemplate: "$util.toJson($context.result)"
+
+  CreateTaskResolver:
+    Type: AWS::AppSync::Resolver
+    Properties:
+      ApiId: !ImportValue
+         Fn::Sub: "${AppSyncApiId}"
+      TypeName: Mutation
+      FieldName: createTask
+      DataSourceName: "LambdaDataSource"
+      RequestMappingTemplate: |
+        {
+          "version": "2018-05-29",
+          "payload": $util.toJson($context.arguments)
+        }
+      ResponseMappingTemplate: "$util.toJson($context.result)"
+
+  UpdateTaskResolver:
+    Type: AWS::AppSync::Resolver
+    Properties:
+      ApiId: !ImportValue
+        Fn::Sub: "${AppSyncApiId}"
+      TypeName: Mutation
+      FieldName: updateTask
+      DataSourceName: "LambdaDataSource"
+      RequestMappingTemplate: |
+        {
+          "version": "2018-05-29",
+          "payload": $util.toJson($context.arguments)
+        }
+      ResponseMappingTemplate: "$util.toJson($context.result)"
+
+  DeleteTaskResolver:
+    Type: AWS::AppSync::Resolver
+    Properties:
+      ApiId: !ImportValue
+        Fn::Sub: "${AppSyncApiId}"
+      TypeName: Mutation
+      FieldName: deleteTask
+      DataSourceName: "LambdaDataSource"
+      RequestMappingTemplate: |
+        {
+          "version": "2018-05-29",
+          "payload": $util.toJson($context.arguments)
+        }
+      ResponseMappingTemplate: "$util.toJson($context.result)"
+
+  AppSyncApiKey:
+    Type: AWS::AppSync::ApiKey
+    Properties:
+      ApiId: !ImportValue
+        Fn::Sub: "${AppSyncApiId}"
