@@ -10,7 +10,6 @@ from enum import StrEnum
 from typing import Optional
 from datetime import datetime
 
-
 # load environment variable
 AWS_REGION = os.environ.get('AWS_REGION', "ap-southeast-2")
 TASKS_TABLE = os.environ.get("TASKS_TABLE", "Tasks")
@@ -81,7 +80,10 @@ class EventProcessor(Protocol):
 
 
 class TaskCreateProcessor(EventProcessor):
-    # handle task creation event
+    """
+     event processor to handle single task creation
+    """
+
     def process(self, args: dict) -> dict:
         try:
             task = Task(
@@ -101,6 +103,10 @@ class TaskCreateProcessor(EventProcessor):
 
 
 class TaskRetrieveProcessor(EventProcessor):
+    """
+     event processor to handle single task retrival
+    """
+
     def process(self, args: dict) -> dict:
         try:
             task_id = args.get("id", None)
@@ -116,6 +122,10 @@ class TaskRetrieveProcessor(EventProcessor):
 
 
 class TaskUpdateProcessor(EventProcessor):
+    """
+      event processor to update task
+    """
+
     def process(self, args: dict) -> dict:
         try:
             task_id = args.get("id", None)
@@ -150,6 +160,65 @@ class TaskUpdateProcessor(EventProcessor):
             return {"error": str(ex)}
 
 
+class TaskDeleteProcessor(EventProcessor):
+    """
+      event processor to delete task
+    """
+
+    def process(self, args):
+        try:
+            task_id = args.get("id")
+            if not task_id:
+                return {"error": ERROR_TASK_ID_MISSING}
+
+            deleted_item = table.delete_item(
+                Key={"id": task_id},
+                ReturnValues="ALL_OLD"
+            )
+
+            if not deleted_item or deleted_item.get("Attributes") is None:
+                return {"error": f"{ERROR_TASK_NOT_FOUND} for {task_id}"}
+
+            return deleted_item.get("Attributes")
+        except Exception as ex:
+            print("exception in TaskDeleteProcessor", str(ex))
+            return {"error": str(ex)}
+
+class TaskListProcessor(EventProcessor):
+    """
+    event processor to retrieve list of tasks, paginated by limit and next token
+    """
+    def process(self, args):
+        # paginated by limit and token
+        try:
+            limit = int(args.get("limit", 10))
+            next_token = args.get("nextToken",None)
+            table_scan_params = {
+                "Limit": limit
+            }
+            if next_token:
+                prev_key = json.loads(next_token)
+                table_scan_params["ExclusiveStartKey"] = prev_key
+
+            data = table.scan(**table_scan_params)
+            next_token = data.get("LastEvaluatedKey", None)
+            if next_token:
+                next_token = json.dumps(next_token)
+
+            task_ids = [item.get("id",None) for item in data.get("Items",[])]
+            return {
+                "taskIds": task_ids,
+                "nextToken": next_token
+            }
+        except Exception as ex:
+            print("exception in TaskListProcessor", str(ex))
+            return {"error": str(ex)}
+
+
+
+
+
+
 class UnknownTaskProcessor(EventProcessor):
     def process(self, args: dict) -> dict:
         return {"error": "Unknown task event"}
@@ -162,9 +231,11 @@ def processor_factory(event_type):
         case "updateTask":
             return TaskUpdateProcessor()
         case "deleteTask":
-            return UnknownTaskProcessor()  # TaskDeleteProcessor()
+            return TaskDeleteProcessor()
         case "getTask":
             return TaskRetrieveProcessor()
+        case "listTask":
+            return UnknownTaskProcessor()
         case _:
             return UnknownTaskProcessor()  # UnknownTaskProcessor()
 
@@ -176,8 +247,9 @@ def handler(event, context):
         processor = processor_factory(field)
         args = event.get("arguments")
         print(f"fields {field} and arguments {args}")
-        return processor.process(args)
-
+        response = processor.process(args)
+        print(f"response {response}")
+        return response
     # TODO should filterout generic exception
     except Exception as ex:
         print("exception in handler ", str(ex))
