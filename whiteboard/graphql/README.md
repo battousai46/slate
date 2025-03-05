@@ -38,9 +38,8 @@ The API will allow users to:
 
 
 ``` 
-script location: Makefile
-
- 
+- scripts:
+Makefile 
 ```
 WIP Enhancement:
 - distinct IAM role and policy attachment,
@@ -85,7 +84,18 @@ apply-resolver-infra: # deploy resolver lambda for appsync
   --template-file resolver_stack.yaml \
   --stack-name resolver-stack \
   --capabilities CAPABILITY_IAM
+ 
+appsync-create-apikey
+  aws appsync list-graphql-apis
+  aws appsync create-api-key --api-id <GRAPHQL_APP_ID>
+  
+appsync-list-resolvers
+  aws appsync list-resolvers --api-id <GRAPHQL_APP_ID> --type-name <Mutation | Query>
+
+observe-lambda-logs
+  aws logs tail /aws/lambda/TaskResolverLambda --follow
 ```
+kindly reach out for technical discussion and alternate solutions.
 
 #### Regards: geass.of.code@gmail.com 
 

@@ -13,14 +13,28 @@ type Task {
 }
 
 type TaskPagination {
-  taskIds: [ID]      # List of Task IDs
-  nextToken: String  # Token for next page
+  taskIds: [ID]
+  nextToken: String
 }
 
+type Error {
+  message: String!
+}
+
+type TaskResponse {
+  task: Task
+  error: Error
+}
+
+type TaskPaginationResponse {
+  tasks: [Task]
+  nextToken: String
+  error: Error
+}
 
 type Query {
-  getTask(id: ID!): Task
-  listTasks(limit: Int, nextToken: String): TaskPagination
+  getTask(id: ID!): TaskResponse
+  listTasks(limit: Int, nextToken: String): TaskPaginationResponse
 }
 
 input CreateTaskInput {
@@ -39,9 +53,9 @@ input UpdateTaskInput {
 }
 
 type Mutation {
-  createTask(input: CreateTaskInput!): Task
-  updateTask(input: UpdateTaskInput!): Task
-  deleteTask(id: ID!): Task
+  createTask(input: CreateTaskInput!): TaskResponse
+  updateTask(input: UpdateTaskInput!): TaskResponse
+  deleteTask(id: ID!): TaskResponse
 }
 
 schema {

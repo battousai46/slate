@@ -2,7 +2,6 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: AppSync Resolver Stack
 
 Parameters:
-
   AppSyncApiId:
     Type: String
     Default: "base-stack-AppSyncApiId"
@@ -12,11 +11,13 @@ Resources:
   GetTaskResolver:
     Type: AWS::AppSync::Resolver
     Properties:
-      ApiId: !ImportValue
-         Fn::Sub: "${AppSyncApiId}"
+      ApiId: !ImportValue "base-stack-AppSyncApiId"
+      #ApiId: !ImportValue
+     #    Fn::Sub: "${AppSyncApiId}"
       TypeName: Query
       FieldName: getTask
-      DataSourceName: "LambdaDataSource"
+      #DataSourceName: "LambdaDataSource"
+      DataSourceName: !ImportValue "base-stack-LambdaDataSourceName"
       RequestMappingTemplate: |
         {
           "version": "2018-05-29",
@@ -34,11 +35,11 @@ Resources:
   CreateTaskResolver:
     Type: AWS::AppSync::Resolver
     Properties:
-      ApiId: !ImportValue
-         Fn::Sub: "${AppSyncApiId}"
+      ApiId: !ImportValue "base-stack-AppSyncApiId"
+         #Fn::Sub: "${AppSyncApiId}"
       TypeName: Mutation
       FieldName: createTask
-      DataSourceName: "LambdaDataSource"
+      DataSourceName: !ImportValue "base-stack-LambdaDataSourceName"
       RequestMappingTemplate: |
         {
           "version": "2018-05-29",
@@ -60,7 +61,7 @@ Resources:
         Fn::Sub: "${AppSyncApiId}"
       TypeName: Mutation
       FieldName: updateTask
-      DataSourceName: "LambdaDataSource"
+      DataSourceName: !ImportValue "base-stack-LambdaDataSourceName"
       RequestMappingTemplate: |
         {
           "version": "2018-05-29",
@@ -82,7 +83,7 @@ Resources:
         Fn::Sub: "${AppSyncApiId}"
       TypeName: Mutation
       FieldName: deleteTask
-      DataSourceName: "LambdaDataSource"
+      DataSourceName: !ImportValue "base-stack-LambdaDataSourceName"
       RequestMappingTemplate: |
         {
           "version": "2018-05-29",
@@ -104,7 +105,7 @@ Resources:
         Fn::Sub: "${AppSyncApiId}"
       TypeName: "Query"
       FieldName: "listTasks"
-      DataSourceName:  "LambdaDataSource"
+      DataSourceName: !ImportValue "base-stack-LambdaDataSourceName"
       RequestMappingTemplate: |
         {
           "version": "2018-05-29",

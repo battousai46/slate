@@ -95,11 +95,11 @@ class TaskCreateProcessor(EventProcessor):
             )
             valid_task = asdict(task)
             table.put_item(Item=valid_task)
-            return valid_task
+            return {"task": valid_task, "error": None}
         # catching generic exception, better to catch specific
         except Exception as ex:
             print("exception in TaskCreateProcessor", str(ex))
-            return {"error": str(ex)}
+            return {"task": None, "error": {"message": str(ex)}}
 
 
 class TaskRetrieveProcessor(EventProcessor):
@@ -111,14 +111,16 @@ class TaskRetrieveProcessor(EventProcessor):
         try:
             task_id = args.get("id", None)
             if task_id is None:
-                return {"error": ERROR_TASK_ID_MISSING}
+                return {"task": None,
+                        "error": {"message": f"{ERROR_TASK_ID_MISSING}"}}
             task = table.get_item(Key={"id": task_id})
             if task is None or task.get("Item") is None:
-                return {"error": f"{ERROR_TASK_NOT_FOUND} for {task_id}"}
-            return task
+                return {"task": None,
+                        "error": {"message": f"{ERROR_TASK_NOT_FOUND} for {task_id}"}}
+            return {"task": task, "error": None}
         except Exception as ex:
             print("exception in TaskCreateProcessor", str(ex))
-            return {"error": str(ex)}
+            return {"task": None, "error": {"message": str(ex)}}
 
 
 class TaskUpdateProcessor(EventProcessor):
@@ -130,13 +132,14 @@ class TaskUpdateProcessor(EventProcessor):
         try:
             task_id = args.get("id", None)
             if task_id is None:
-                return {"error": ERROR_TASK_ID_MISSING}
+                return {"task": None,
+                        "error": {"message": f"{ERROR_TASK_ID_MISSING}"}}
 
             # check arg has valid keys, though appsync resolver filters them
             valid_keys = Task.__annotations__.keys()
             invalid_keys = set(args.keys()) - set(valid_keys)
             if invalid_keys:
-                return {"error": f"invalid attributes {invalid_keys}"}
+                return {"task": None, "error": {"message": f"Invalid attributes: {list(invalid_keys)}"}}
 
             # get task
             task = TaskRetrieveProcessor().process(args)
@@ -152,12 +155,12 @@ class TaskUpdateProcessor(EventProcessor):
                 ExpressionAttributeValues=expr_values,
                 ReturnValues="ALL_NEW"
             )
-
-            return response.get("Attributes", {})
+            updated_task = response.get("Attributes", {})
+            return {"task": updated_task, "error": None}
         # TypeError, catch all exception instead
         except Exception as ex:
             print("exception in TaskUpdateProcessor", str(ex))
-            return {"error": str(ex)}
+            return {"task": None, "error": {"message": str(ex)}}
 
 
 class TaskDeleteProcessor(EventProcessor):
@@ -169,30 +172,32 @@ class TaskDeleteProcessor(EventProcessor):
         try:
             task_id = args.get("id")
             if not task_id:
-                return {"error": ERROR_TASK_ID_MISSING}
+                return {"task": None, "error": {"message": ERROR_TASK_ID_MISSING}}
 
             deleted_item = table.delete_item(
                 Key={"id": task_id},
                 ReturnValues="ALL_OLD"
             )
+            deleted_task = deleted_item.get("Attributes")
+            if deleted_task is None:
+                return {"task": None, "error": {"message": f"{ERROR_TASK_NOT_FOUND} with ID {task_id}"}}
 
-            if not deleted_item or deleted_item.get("Attributes") is None:
-                return {"error": f"{ERROR_TASK_NOT_FOUND} for {task_id}"}
-
-            return deleted_item.get("Attributes")
+            return {"task": deleted_task, "error": None}
         except Exception as ex:
             print("exception in TaskDeleteProcessor", str(ex))
-            return {"error": str(ex)}
+            return {"task": None, "error": {"message": str(ex)}}
+
 
 class TaskListProcessor(EventProcessor):
     """
     event processor to retrieve list of tasks, paginated by limit and next token
     """
+
     def process(self, args):
         # paginated by limit and token
         try:
             limit = int(args.get("limit", 10))
-            next_token = args.get("nextToken",None)
+            next_token = args.get("nextToken", None)
             table_scan_params = {
                 "Limit": limit
             }
@@ -205,23 +210,27 @@ class TaskListProcessor(EventProcessor):
             if next_token:
                 next_token = json.dumps(next_token)
 
-            task_ids = [item.get("id",None) for item in data.get("Items",[])]
+            tasks = []
+            for item in data.get("Items", []):
+                tasks.append({"id": item["id"],
+                              "title": item["title"],
+                              "status": item["status"]})
+
             return {
-                "taskIds": task_ids,
-                "nextToken": next_token
+                "tasks": tasks,
+                "nextToken": next_token,
+                "error": None
             }
+
         except Exception as ex:
             print("exception in TaskListProcessor", str(ex))
-            return {"error": str(ex)}
-
-
-
-
+            return {"tasks": None, "nextToken": None, "error": {"message": str(ex)}}
 
 
 class UnknownTaskProcessor(EventProcessor):
     def process(self, args: dict) -> dict:
-        return {"error": "Unknown task event"}
+        return {"task": None,
+                "error": {"message": "Unknown task event"}}
 
 
 def processor_factory(event_type):
@@ -253,4 +262,4 @@ def handler(event, context):
     # TODO should filterout generic exception
     except Exception as ex:
         print("exception in handler ", str(ex))
-        return {"error": str(ex)}
+        return {"task": None, "error": {"message": str(ex)}}

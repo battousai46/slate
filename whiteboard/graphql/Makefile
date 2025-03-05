@@ -20,6 +20,11 @@ apply-cloudformation-stack:
 get-appsync-apis:
 	aws appsync list-graphql-apis
 
+list-api-key:
+	aws appsync list-api-keys \
+    --api-id <appsync-app-id> \
+    --endpoint-url=http://localhost:4566
+
 create-api-key:
 	aws appsync create-api-key --api-id 4030305f14f045abb611b374c8
 
@@ -31,6 +36,13 @@ export-graphql-schema:
 
 list-query-resolvers:
 	aws appsync list-resolvers --api-id 4030305f14f045abb611b374c8 --type-name Query
+
+list-inline-policy:
+	aws iam list-role-policies --role-name <rol_name> #from our stack LambdaSTSRole
+
+tail-lambda-log:
+	aws logs tail /aws/lambda/TaskResolverLambda --follow
+
 
 create-appsync-test-graphqlapi:
 	aws appsync create-graphql-api \
@@ -67,8 +79,6 @@ remove-test-resolver: #
   --type-name "Query" \
   --field-name "getTask"
 
-tail-lambda-log:
-	aws logs tail /aws/lambda/TaskResolverLambda --follow
 
 update-graphql-schema:
 	aws appsync update-graphql-api \

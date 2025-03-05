@@ -29,8 +29,8 @@ def invoke_lambda_mock():
         "field": "createTask",
         "query": "mutation CreateTask($input: CreateTaskInput!) { createTask(input: $input) { id title description due_date status } }",
         "arguments": {
-                "title": "Sample Task",
-                "description": "This is a sample task",
+                "title": "First Task",
+                "description": "This is the first task",
                 "due_date": "2025-03-04T12:00:00Z",
                 "status": "TO_DO"
             }
