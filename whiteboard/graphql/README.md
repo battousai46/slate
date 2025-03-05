@@ -37,9 +37,9 @@ The API will allow users to:
 * Task Deletion
 
 
-```
-unit tests coverage run by pytest 
+``` 
 script location: Makefile
+
  
 ```
 WIP Enhancement:
@@ -59,7 +59,9 @@ WIP Enhancement:
 - create base stack: appsync, iamrole, dynamodb, lambda
 - create resolver stack: attach python lambda as mutation resolver 
 ```bash
-
+unit-tests:
+    pytest -s -v backend/test
+    
 setup-s3:
 	aws --endpoint-url=http://localhost:4566 s3 mb s3://graphql-datasource-lambda
 
