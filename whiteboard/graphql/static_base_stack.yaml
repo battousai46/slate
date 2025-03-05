@@ -4,7 +4,7 @@ Description: >
 
 Resources:
 
-  # DynamoDB Table for Storing Tasks
+  ### DynamoDB Table for Storing Tasks ###
   TaskDB:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -18,7 +18,7 @@ Resources:
       BillingMode: PAY_PER_REQUEST
 
 
-  # IAM Role for Lambda to DynamoDB
+  ### IAM Role for Lambda to DynamoDB ###
   LambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
@@ -43,7 +43,7 @@ Resources:
                   - dynamodb:GetItem
                   - dynamodb:UpdateItem
                   - dynamodb:DeleteItem
-                Resource: !GetAtt TaskDB.Arn  # Restrict to task db table
+                Resource: !GetAtt TaskDB.Arn  # Restrict to this table
               - Effect: Allow
                 Action:
                   - logs:CreateLogGroup
@@ -55,11 +55,10 @@ Resources:
                   - appsync:Invoke
                 Resource: "*"
 
-  # Lambda AppSync Resolver
+  ### Lambda Function for AppSync Resolver ###
   TaskPythonLambdaFunction:
     Type: AWS::Lambda::Function
-    # explicitly ensure waiting for IAM role creation
-    DependsOn: LambdaExecutionRole
+    DependsOn: LambdaExecutionRole  # Ensures IAM role exists first
     Properties:
       FunctionName: TaskResolverLambda
       Handler: task_lambda.handler
@@ -70,25 +69,43 @@ Resources:
         S3Key: task_lambda.zip
       Environment:
         Variables:
-          # ensure implicit table creation
-          DYNAMODB_TABLE: !Ref TaskDB
-           # replace localstack with envirnment var, or pass param, irfan testing
-          DYNAMODB_ENDPOINT: "http://localhost:4566"
+          DYNAMODB_TABLE: !Ref TaskDB  # Ensure Lambda gets table name
+          DYNAMODB_ENDPOINT: "http://localhost:4566"  # LocalStack-friendly
 
+  ### AppSync API ###
   AppSyncApi:
     Type: AWS::AppSync::GraphQLApi
     Properties:
       Name: TaskAppSyncAPI
       AuthenticationType: API_KEY
 
-  # load schema from graphql-datasource-lambda s3, created on separate stack
+  ### AppSync Schema (Changed to Inline for LocalStack) ###
   AppSyncSchema:
     Type: AWS::AppSync::GraphQLSchema
     Properties:
       ApiId: !GetAtt AppSyncApi.ApiId
-      DefinitionS3Location: !Sub "s3://graphql-datasource-lambda/schema.graphql"
+      Definition: |
+        type Task {
+          id: ID!
+          title: String!
+          status: String!
+        }
 
-  # attach data source
+        type Query {
+          getTask(id: ID!): Task
+        }
+
+        type Mutation {
+          createTask(id: ID!, title: String!, status: String!): Task
+        }
+
+        schema {
+          query: Query
+          mutation: Mutation
+        }
+
+
+  ### Lambda as AppSync Data Source ###
   LambdaDataSource:
     Type: AWS::AppSync::DataSource
     DependsOn:
@@ -102,7 +119,7 @@ Resources:
         LambdaFunctionArn: !GetAtt TaskPythonLambdaFunction.Arn
       ServiceRoleArn: !GetAtt LambdaExecutionRole.Arn
 
-  # use api Key to access appsync
+  ### API Key for AppSync Access ###
   AppSyncApiKey:
     Type: AWS::AppSync::ApiKey
     Properties:
