@@ -12,9 +12,15 @@ type Task {
   status: Status!
 }
 
+type TaskPagination {
+  taskIds: [ID]      # List of Task IDs
+  nextToken: String  # Token for next page
+}
+
+
 type Query {
   getTask(id: ID!): Task
-  listTasks: [Task]
+  listTasks(limit: Int, nextToken: String): TaskPagination
 }
 
 input CreateTaskInput {

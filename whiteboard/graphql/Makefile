@@ -38,7 +38,10 @@ create-appsync-test-graphqlapi:
     --authentication-type API_KEY
 
 zip-lambda:
-	zip task_lambda.zip task_lambda.py\n
+	zip task_lambda.zip task_lambda.py
+
+put-lambda-s3:
+	python -m lambda_to_s3
 
 list-ssm-parameters:
 	aws ssm describe-parameters

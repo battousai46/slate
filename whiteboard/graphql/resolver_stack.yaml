@@ -20,9 +20,16 @@ Resources:
       RequestMappingTemplate: |
         {
           "version": "2018-05-29",
-          "payload": $util.toJson($context.arguments)
+          "field": "$context.info.fieldName",
+          "arguments": $util.toJson($context.arguments),
+          "identity": $util.toJson($context.identity),
+          "source": $util.toJson($context.source),
+          "request": {
+            "headers": $util.toJson($context.request.headers)
+          }
         }
-      ResponseMappingTemplate: "$util.toJson($context.result)"
+      ResponseMappingTemplate: |
+        $util.toJson($context.result)
 
   CreateTaskResolver:
     Type: AWS::AppSync::Resolver
@@ -35,9 +42,16 @@ Resources:
       RequestMappingTemplate: |
         {
           "version": "2018-05-29",
-          "payload": $util.toJson($context.arguments)
+          "field": "$context.info.fieldName",
+          "arguments": $util.toJson($context.arguments),
+          "identity": $util.toJson($context.identity),
+          "source": $util.toJson($context.source),
+          "request": {
+            "headers": $util.toJson($context.request.headers)
+          }
         }
-      ResponseMappingTemplate: "$util.toJson($context.result)"
+      ResponseMappingTemplate: |
+        $util.toJson($context.result)
 
   UpdateTaskResolver:
     Type: AWS::AppSync::Resolver
@@ -50,9 +64,16 @@ Resources:
       RequestMappingTemplate: |
         {
           "version": "2018-05-29",
-          "payload": $util.toJson($context.arguments)
+          "field": "$context.info.fieldName",
+          "arguments": $util.toJson($context.arguments),
+          "identity": $util.toJson($context.identity),
+          "source": $util.toJson($context.source),
+          "request": {
+            "headers": $util.toJson($context.request.headers)
+          }
         }
-      ResponseMappingTemplate: "$util.toJson($context.result)"
+      ResponseMappingTemplate: |
+        $util.toJson($context.result)
 
   DeleteTaskResolver:
     Type: AWS::AppSync::Resolver
@@ -65,9 +86,38 @@ Resources:
       RequestMappingTemplate: |
         {
           "version": "2018-05-29",
-          "payload": $util.toJson($context.arguments)
+          "field": "$context.info.fieldName",
+          "arguments": $util.toJson($context.arguments),
+          "identity": $util.toJson($context.identity),
+          "source": $util.toJson($context.source),
+          "request": {
+            "headers": $util.toJson($context.request.headers)
+          }
         }
-      ResponseMappingTemplate: "$util.toJson($context.result)"
+      ResponseMappingTemplate: |
+        $util.toJson($context.result)
+
+  ListTasksResolver:
+    Type: AWS::AppSync::Resolver
+    Properties:
+      ApiId: !ImportValue
+        Fn::Sub: "${AppSyncApiId}"
+      TypeName: "Query"
+      FieldName: "listTasks"
+      DataSourceName:  "LambdaDataSource"
+      RequestMappingTemplate: |
+        {
+          "version": "2018-05-29",
+          "field": "$context.info.fieldName",
+          "arguments": $util.toJson($context.arguments),
+          "identity": $util.toJson($context.identity),
+          "source": $util.toJson($context.source),
+          "request": {
+            "headers": $util.toJson($context.request.headers)
+          }
+        }
+      ResponseMappingTemplate: |
+        $util.toJson($context.result)
 
   AppSyncApiKey:
     Type: AWS::AppSync::ApiKey
